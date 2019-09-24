@@ -78,11 +78,15 @@ def main():
 		for i in range(100):
 			# measure output from DAC
 			adc.choose_inputs(positive = 'AIN6', negative = 'AIN7')
+			time.sleep(0.0005)
 			response_DAC = adc.collect_measurement(method='hardware', reference=5000, gain = 1)
-			
+			#~ print("Input:", response_DAC)
 			# measure output from sensor
-			adc.choose_inputs(positive = 'AIN6', negative = 'AIN7')
+			adc.choose_inputs(positive = 'AIN4', negative = 'AIN5')
+			time.sleep(0.0005)
 			response_ADC = adc.collect_measurement(method='hardware', reference=5000, gain = 1)
+			
+			#~ print("Sensor:", response_ADC)
 			
 			if response_DAC != None and response_ADC != None:
 				DAC_array_raw.append(response_DAC)
@@ -96,6 +100,8 @@ def main():
 		ADC_array_raw = []
 		
 	plt.scatter(DAC_array_averaged,ADC_array_averaged)
+	#~ plt.y_label("ADC sensor measurement (mV)")
+	#~ plt.x_label("DAC input measurement (mV)")
 	plt.show()
 	#~ dac.
 	#~ print(x)
